@@ -15,7 +15,7 @@ with open('marks.json') as f:
 @app.route('/api', methods=['GET'])
 def get_marks():
     names = request.args.getlist('name')
-    marks = [data['students'].get(name, None) for name in names]
+    marks = [data['marks'].get(name, None) for name in names]
     return jsonify({"marks": marks})
 
 if __name__ == '__main__':
