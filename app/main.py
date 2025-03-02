@@ -10,8 +10,10 @@ async def proxy(request: Request, url: str):
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
             content = response.content
-            headers = response.headers
+            headers = dict(response.headers)
             headers["Access-Control-Allow-Origin"] = "*"
             return Response(content=content, headers=headers, media_type=response.headers.get("content-type"))
     except httpx.RequestError as exc:
         raise HTTPException(status_code=500, detail=str(exc))
+
+# Run the server with: uvicorn main:app --reload
